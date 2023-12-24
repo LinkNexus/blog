@@ -1,0 +1,17 @@
+@import url('bootstrap');
+@import url('~font-awesome');
+
+@font-face {
+    font-family: SFProDisplay-Regular;
+    src: url("../fonts/sf-pro-display-cufonfonts/SFPRODISPLAYREGULAR.OTF");
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background: #18191a;
+    color: #FFF;
+    font-family: SFProDisplay-Regular, serif;
+}

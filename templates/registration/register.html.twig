@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('external') }}
+{% endblock %}
+
+{% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+
+    <section id="register-section">
+        <h1>
+            TheBlog
+        </h1>
+        <div id="register-form-container">
+            <div id="register-title">
+                <h2>Create an Account</h2>
+                <p>It is fast and simple</p>
+            </div>
+
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+
+            {{ form_start(registrationForm) }}
+
+            <div>
+                {{ form_errors(registrationForm, { 'attr': { 'class': 'alert alert-danger' } }) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_widget(registrationForm.username) }}
+                {{ form_errors(registrationForm.username) }}
+            </div>
+            <div class="mb-3">
+                {{ form_widget(registrationForm.email) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+            <div class="mb-3">
+                {{ form_widget(registrationForm.plainPassword) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+            <div class="mb-3">
+                <p>Birth Date <i class="fa fa-calendar"></i></p>
+                {{ form_widget(registrationForm.bornAt) }}
+                {{ form_errors(registrationForm.bornAt) }}
+            </div>
+            <div class="mb-3">
+                <p>Gender <span class="fa fa-question-circle"></span></p>
+                {{ form_widget(registrationForm.gender) }}
+                {{ form_errors(registrationForm.gender) }}
+            </div>
+            <div class="mb-3">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+            {{ form_widget(registrationForm.submit) }}
+            <a href="{{ path('app_login') }}">Already have an Account?</a>
+            {{ form_end(registrationForm) }}
+        </div>
+    </section>
+
+    <script>
+        const formErrorBlock = document.querySelector('form>div:not(.mb-3)>.invalid-feedback'),
+            formErrorDiv = document.querySelector('form>div:not(.mb-3)');
+
+        if (formErrorBlock) {
+            formErrorDiv.className = 'alert alert-danger';
+        }
+    </script>
+
+{% endblock %}

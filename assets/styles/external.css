@@ -1,0 +1,213 @@
+@import url(./app.css);
+
+html {
+    height: 100% !important;
+}
+
+body{
+    height: 100% !important;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    box-sizing: unset;
+}
+
+button:active {
+    transform: scale(0.98);
+    /* Scaling button to 0.98 to its original size */
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    /* Lowering the shadow */
+}
+
+/* Login */
+
+#login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 30px;
+}
+
+#login-section #login-text-container {
+    width: 50%;
+}
+
+#login-section #login-text-container h1 {
+    color: #ad2ec9;
+    font-size: 50px;
+    height: fit-content;
+    font-weight: bolder;
+}
+
+#login-section #login-text-container {
+    font-size: 25px;
+    margin-top: -25px;
+}
+
+#login-section #login-form-container {
+    display: flex;
+    background: #242526;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 30%;
+    padding: 20px;
+    border-radius: 8px;
+    margin-left: 25px;
+}
+
+#login-section #login-form-container #login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #000;
+}
+
+#login-section #login-form-container #login-form input {
+    width: 100%;
+    margin-bottom: 15px;
+    height: 50px;
+    border-radius: 5px;
+    color: #FFF;
+    background: inherit;
+    font-size: 16px;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+
+#login-section #login-form-container #login-form button {
+    background: #ad2ec9;
+    margin-top: 5px;
+}
+
+#login-section #login-form-container #login-form a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #ad2ec9;
+}
+
+#login-section #login-form-container button {
+    all: unset;
+    width: 100%;
+    background: #1877f2;
+    height: 45px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+    outline: none;
+    transition: 0.2s all;
+}
+
+/* End Login */
+
+/* Register */
+
+#register-section {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 350px;
+}
+
+#register-section h1 {
+    color: #ad2ec9;
+    font-size: 50px;
+    width: fit-content;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
+#register-form-container {
+    background: #242526;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+#register-form-container #register-title {
+    border-bottom: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    width: 100%;
+}
+
+#register-form-container form {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#register-form-container form input:not([type="radio"], [type="checkbox"]),
+#register-form-container form select,
+#registration_form_gender .form-check{
+    background: inherit;
+    color: #737d7d;
+    border-image: initial;
+    border: 2px inset #000;
+    height: 50px;
+}
+
+#register-form-container form input::placeholder {
+    color: #737d7d;
+}
+
+#registration_form_gender {
+    display: flex;
+    justify-content: space-between;
+}
+
+#registration_form_gender .form-check {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 40px;
+}
+
+#register-form-container form button {
+    all: unset;
+    width: 100%;
+    background: #ad2ec9;
+    height: 45px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+    outline: none;
+    transition: 0.2s all;
+    align-self: center;
+}
+
+#register-form-container form a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #ad2ec9;
+    align-self: center;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+

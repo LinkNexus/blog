@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('external') }}
+{% endblock %}
+
+{% block body %}
+    <section id="login-section">
+        <div id="login-text-container">
+            <h1>TheNexus</h1>
+            <p>
+                TheNexus is a technology platform for beginners, researchers etc.
+                The objective here is to help each other by sharing our knowledge
+                on the various technology fields. TheNexus is here to bring us closer!
+            </p>
+        </div>
+        <div id="login-form-container">
+            <form id="login-form" method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3 alert alert-success text-center">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <input type="email" value="{{ last_username }}" name="email" id="email-input" placeholder="Email Address" autocomplete="email" required autofocus>
+                <input type="password" name="password" id="password-input" placeholder="Password" autocomplete="current-password" required>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+                <button type="submit">Sign In</button>
+                <p><a href="{{ path('app_forgot_password_request') }}">Forgot Password?</a></p>
+            </form>
+            <button id="sign-up-button">Sign Up</button>
+        </div>
+    </section>
+
+    <script>
+        const signUpButton = document.getElementById('sign-up-button');
+
+        signUpButton.addEventListener('click', function (evt) {
+            window.location.href = "{{ path('app_register') }}"
+        })
+    </script>
+{% endblock %}
