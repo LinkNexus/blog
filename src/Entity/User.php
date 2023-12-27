@@ -61,9 +61,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $lastLogin = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $joinedAt = null;
+
     public function __construct()
     {
         $this->lastLogin = new \DateTimeImmutable();
+        $this->joinedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -192,6 +196,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastLogin(\DateTimeImmutable $lastLogin): static
     {
         $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getJoinedAt(): ?\DateTimeImmutable
+    {
+        return $this->joinedAt;
+    }
+
+    public function setJoinedAt(\DateTimeImmutable $joinedAt): static
+    {
+        $this->joinedAt = $joinedAt;
 
         return $this;
     }

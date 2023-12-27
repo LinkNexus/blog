@@ -42,7 +42,8 @@
     </section>
 
     <script>
-        const signUpButton = document.getElementById('sign-up-button');
+        const signUpButton = document.getElementById('sign-up-button'),
+            rememberMeInput = document.getElementById('remember-me-input');
 
         signUpButton.addEventListener('click', function (evt) {
             window.location.href = "{{ path('app_register') }}"

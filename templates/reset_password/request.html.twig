@@ -2,7 +2,14 @@
 
 {% block title %}Reset your password{% endblock %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('external') }}
+{% endblock %}
+
 {% block body %}
+    <section id="reset-password-section">
+
+    </section>
     {% for flash_error in app.flashes('reset_password_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
