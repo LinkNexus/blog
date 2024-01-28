@@ -6,12 +6,68 @@
     src: url("../fonts/sf-pro-display-cufonfonts/SFPRODISPLAYREGULAR.OTF");
 }
 
+:root {
+    --gradientColor1: #5a0c7a; /* dark purple */
+    --gradientColor2: #0c5a7a; /* blue */
+    --gradientColor3: #7ad2f6; /* light blue */
+    --gradientColor4: #0c7a5a; /* teal */
+    --principalColor: rgb(35, 182, 217);
+    --secondaryColor: #1877f2;
+    --background: #18191a;
+    --secondBackground: #242526;
+}
+
+* {
+    min-width: 0;
+    font: inherit;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 html {
-    height: 100%;
+    height: 100% !important;
 }
 
 body {
-    background: #18191a;
+    height: 100% !important;
+    background: var(--background);
     color: #FFF;
     font-family: SFProDisplay-Regular, serif;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    box-sizing: unset;
+    flex-direction: column;
+    margin: 0;
+    max-width: 100%;
+}
+
+img, video, svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+button {
+    all: unset;
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+    outline: none;
+    transition: 0.2s all;
+
+    &:active {
+        transform: scale(0.98);
+        /* Scaling button to 0.98 to its original size */
+        box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+        /* Lowering the shadow */
+    }
 }

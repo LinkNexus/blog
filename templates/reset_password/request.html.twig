@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme requestForm 'bootstrap_5_layout.html.twig' %}
+
 {% block title %}Reset your password{% endblock %}
 
 {% block stylesheets %}
@@ -7,23 +9,42 @@
 {% endblock %}
 
 {% block body %}
-    <section id="reset-password-section">
+    <style>
+        body {
+            justify-content: flex-start;
+        }
+    </style>
 
-    </section>
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address, and we will send you a
-                link to reset your password.
-            </small>
+    <header id="reset-password-header">
+        <div id="logo-zone">
+            <img src="{{ asset('/images/logo.png') }}" alt="logo">
+            <h1>TheNexus</h1>
         </div>
+        <div id="reset-password-header-buttons">
+            <button onclick="window.location.href = '{{ path('app_login') }}'">Sign In</button>
+            <button onclick="window.location.href = '{{ path('app_register') }}'">Sign Up</button>
+        </div>
+    </header>
 
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+    <section id="reset-password-section">
+        <h2>Find your Account</h2>
+        {{ form_start(requestForm) }}
+            {% for flash_error in app.flashes('reset_password_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+
+            <div id="reset-password-form">
+                <p>
+                    Please enter your Email Address to search for your Account.
+                </p>
+                {{ form_widget(requestForm.email) }}
+            </div>
+            <div id="reset-password-section-buttons">
+                <button>Search</button>
+            </div>
+        {{ form_end(requestForm) }}
+    </section>
+
 {% endblock %}
+
+
