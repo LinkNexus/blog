@@ -8,6 +8,7 @@ use App\Form\ResetPasswordRequestFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +28,8 @@ class ResetPasswordController extends AbstractController
 
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private Security $security
     ) {
     }
 
@@ -121,7 +123,15 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_profile');
+            $user = $this->entityManager
+                ->getRepository(User::class)
+                ->findOneBy([
+                    'email' => $this->security->getUser()->getUserIdentifier(),
+                ]);
+
+            return $this->redirectToRoute('app_profile', [
+                'id' => $user->getId(),
+            ]);
         }
 
         return $this->render('reset_password/reset.html.twig', [

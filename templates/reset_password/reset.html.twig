@@ -1,12 +1,27 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme resetForm 'bootstrap_5_layout.html.twig' %}
+
 {% block title %}Reset your password{% endblock %}
 
-{% block body %}
-    <h1>Reset your password</h1>
+{% block stylesheets %}
+    {{ encore_entry_link_tags('external') }}
+{% endblock %}
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+{% block body %}
+
+    {% include 'reset_password/header.html.twig' %}
+
+    <section id="change-password-section">
+        <h2>Reset your password</h2>
+        {{ form_start(resetForm) }}
+            <div id="change-password-form">
+                {{ form_row(resetForm.plainPassword) }}
+            </div>
+            <div id="change-password-section-button">
+                <button>Reset</button>
+            </div>
+        {{ form_end(resetForm) }}
+
+    </section>
 {% endblock %}

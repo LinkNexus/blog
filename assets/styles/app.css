@@ -37,7 +37,6 @@ body {
     font-family: SFProDisplay-Regular, serif;
     display: flex;
     align-content: center;
-    justify-content: center;
     box-sizing: unset;
     flex-direction: column;
     margin: 0;

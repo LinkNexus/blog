@@ -9,22 +9,8 @@
 {% endblock %}
 
 {% block body %}
-    <style>
-        body {
-            justify-content: flex-start;
-        }
-    </style>
 
-    <header id="reset-password-header">
-        <div id="logo-zone">
-            <img src="{{ asset('/images/logo.png') }}" alt="logo">
-            <h1>TheNexus</h1>
-        </div>
-        <div id="reset-password-header-buttons">
-            <button onclick="window.location.href = '{{ path('app_login') }}'">Sign In</button>
-            <button onclick="window.location.href = '{{ path('app_register') }}'">Sign Up</button>
-        </div>
-    </header>
+    {% include 'reset_password/header.html.twig' %}
 
     <section id="reset-password-section">
         <h2>Find your Account</h2>
@@ -39,7 +25,7 @@
                 </p>
                 {{ form_widget(requestForm.email) }}
             </div>
-            <div id="reset-password-section-buttons">
+            <div id="reset-password-section-button">
                 <button>Search</button>
             </div>
         {{ form_end(requestForm) }}

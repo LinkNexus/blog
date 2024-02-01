@@ -7,12 +7,14 @@ use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/profile')]
+#[IsGranted('ROLE_USER')]
 class ProfileController extends AbstractController
 {
 
-    #[Route('/{username}', name: 'app_profile')]
+    #[Route('/{id}', name: 'app_profile', requirements: ['id' => '\d+'])]
     #[Template('profile/index.html.twig')]
     public function index(User $user): array
     {

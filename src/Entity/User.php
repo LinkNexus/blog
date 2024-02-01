@@ -11,7 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(
+    fields: ['email'],
+    message: 'There is already an account with this email'
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -33,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank(message: 'Please enter your username.')]
     #[Assert\Length(
         min: 5,
@@ -42,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxMessage: 'The username must have at most {{ limit }} characters'
     )]
     #[Assert\Regex(pattern: '/^[a-zA-Z]/', message: 'The username must start with a letter')]
-    #[Assert\Regex(pattern: '/[0-9a-zA-Z_]$/', message: 'The username must contain only letters, numbers and underscores')]
+    #[Assert\Regex(pattern: '/[0-9a-zA-Z_]*/', message: 'The username must contain only letters, numbers and underscores')]
     #[Assert\Regex(pattern: '/[0-9a-zA-Z]$/', message: 'The username must either end with a letter or a number')]
     private ?string $username = null;
 

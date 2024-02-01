@@ -38,7 +38,7 @@ class RegistrationController extends AbstractController
                 ]);
 
             return $this->redirectToRoute('app_profile', [
-                'username' => $user->getUsername(),
+                'id' => $user->getId(),
             ]);
         }
 

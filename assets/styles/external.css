@@ -244,13 +244,14 @@
     }
 }
 
-#reset-password-section {
+#reset-password-section, #change-password-section, #check-email-section {
     width: 40%;
     background: var(--secondBackground);
     align-self: center;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    border-radius: 8px;
 
     & h2 {
         border-bottom: 1px solid #000;
@@ -261,7 +262,7 @@
     }
 
     & form {
-        & #reset-password-form {
+        & #reset-password-form, #change-password-form {
             border-bottom: 1px solid #000;
             padding: 20px;
             padding-bottom: 40px;
@@ -284,7 +285,7 @@
             }
         }
 
-        #reset-password-section-buttons {
+        #reset-password-section-button, #change-password-section-button {
             display: flex;
             align-items: center;
             margin-top: 20px;
@@ -301,6 +302,26 @@
         }
     }
 }
+
+#check-email-section {
+    padding: 10px;
+
+    & p {
+        text-align: center;
+
+        &:first-child {
+            margin-top: 10px;
+        }
+
+        & a {
+            text-decoration: none;
+            color: var(--principalColor);
+        }
+    }
+}
+
+/* change Password */
+
 
 
 
