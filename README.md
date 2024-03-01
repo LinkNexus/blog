@@ -11,4 +11,16 @@ Once implemented, run the following command to clone the project on your local m
 
 ```git clone 'https://github.com/LinkNexus/blog.git'```
 
-To ensure 
+Then install all the required dependencies by running:
+
+```cd blog```
+
+then
+
+```npm install``` and ```composer install```
+
+Once all installed, run the command
+
+```symfony serve:d```
+
+to run the Symfony Server and then go the URL: ```https://127.0.0.1:8000/``` to access the website.
