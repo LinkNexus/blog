@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}
+    {{ parent() }} Log in!
+{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('external') }}
@@ -18,7 +20,7 @@
         <div id="login-text-container">
             <div>
                 <img src="{{ asset('images/logo.png') }}" alt="logo">
-                <h1>TheNexus</h1>
+                <h1 id="site-name">TheNexus</h1>
             </div>
             <p>
                 TheNexus is a technology platform for beginners, researchers etc.

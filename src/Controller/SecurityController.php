@@ -15,7 +15,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils,
                           EntityManagerInterface $entityManager): Response
     {
-        /* if (null !== $user = $this->getUser()) {
+        if (null !== $user = $this->getUser()) {
             $user = $entityManager->getRepository(User::class)
                 ->findOneBy([
                     'email' => $user->getUserIdentifier(),
@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_profile', [
                 'username' => $user->getUsername(),
             ]);
-        } */
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -1,0 +1,44 @@
+<header id="main-header">
+    <div id="logo-part">
+        <img src="{{ asset('images/logo.png') }}" alt="logo">
+
+        <input type="search" placeholder="Search in TheNexus">
+    </div>
+
+    <div id="main-header-icons">
+        <div>
+            <span class="main-header-icon fa fa-home"></span>
+        </div>
+        <div>
+            <span class="main-header-icon material-symbols-outlined">live_tv</span>
+        </div>
+        <div>
+            <span class="main-header-icon material-symbols-outlined">store</span>
+        </div>
+        <div>
+            <span class="main-header-icon fa fa-group"></span>
+        </div>
+        <div>
+            <span class="main-header-icon material-symbols-outlined">token</span>
+        </div>
+    </div>
+
+    <div id="main-header-menu">
+        <div>
+            <span class="main-header-menu-icon material-symbols-outlined">menu</span>
+        </div>
+        <div>
+            <span class="main-header-menu-icon fa fa-facebook-messenger"></span>
+        </div>
+        <div>
+            <span class="main-header-menu-icon fa fa-bell"></span>
+        </div>
+        <div class="profile-picture">
+            {% set imagePath = 'images/' ~ user.gender ~ '_icon.jpg' %}
+            <img src="{{ asset(imagePath|lower) }}" alt="profile_pic">
+            <div>
+                <span class="fa fa-chevron-down"></span>
+            </div>
+        </div>
+    </div>
+</header>

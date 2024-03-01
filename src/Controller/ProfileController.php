@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProfileController extends AbstractController
 {
 
-    #[Route('/{id}', name: 'app_profile', requirements: ['id' => '\d+'])]
+    #[Route('/{username}', name: 'app_profile', requirements: ['id' => '\d+'])]
     #[Template('profile/index.html.twig')]
     public function index(User $user): array
     {

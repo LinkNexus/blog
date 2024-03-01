@@ -2,7 +2,9 @@
 
 {% form_theme resetForm 'bootstrap_5_layout.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}
+    {{ parent() }} Reset your password
+{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('external') }}

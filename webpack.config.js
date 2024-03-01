@@ -24,6 +24,8 @@ Encore
 
     .addStyleEntry('external', './assets/styles/external.css')
 
+    .addStyleEntry('main', './assets/styles/main.css')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
@@ -56,7 +58,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
