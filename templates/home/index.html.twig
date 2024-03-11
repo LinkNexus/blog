@@ -23,4 +23,120 @@
 
    {% include 'base/header.html.twig' %}
 
+    <aside class="left-aside-menu">
+
+       <div class="left-aside-menu-elements">
+          <div class="left-aside-menu-element">
+             {% if user.profilePicture is null %}
+                {% set imagePath = 'images/' ~ user.gender ~ '_icon.jpg' %}
+                <img src="{{ asset(imagePath|lower) }}" alt="profile_pic" class="profile-picture">
+             {% endif %}
+             <span>{{ user.username }}</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/friends.png') }}" alt="">
+             <span>Friends</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/newsfeed.png') }}" alt="">
+             <span>Feeds</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/diversity.png') }}" alt="">
+             <span>Groups</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/shop.png') }}" alt="">
+             <span>Marketplace</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/smart-tv.png') }}" alt="">
+             <span>Videos</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/clock.png') }}" alt="">
+             <span>Memories</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/bookmark.png') }}" alt="">
+             <span>Saved</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <div>
+                <span class="fa fa-chevron-down"></span>
+             </div>
+             <span>See more</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/timetable.png') }}" alt="">
+             <span>Events</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/messenger.png') }}" alt="">
+             <span>Messages</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/atm-card.png') }}" alt="">
+             <span>Orders and Payment</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/facebook-page.png') }}" alt="">
+             <span>Pages</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <img src="{{ asset('images/icons/game.png') }}" alt="">
+             <span>Play Games</span>
+          </div>
+          <div class="left-aside-menu-element">
+             <div>
+                <span class="fa fa-chevron-up"></span>
+             </div>
+             <span>See less</span>
+          </div>
+       </div>
+    </aside>
+
+   <script>
+      console.log(
+              window.innerHeight,
+              window.innerWidth,
+              document.querySelector('#logo-part').offsetWidth,
+              document.querySelector('#main-header-menu').offsetWidth,
+              document.querySelector('#main-header-icons>div').offsetWidth
+      );
+
+      const leftAsideMenuElements = document.querySelectorAll('.left-aside-menu-element'),
+              leftAsideMenuElementsIconContainers = document.querySelectorAll('.left-aside-menu-element>div');
+
+      let nonDisplayedLeftAsideMenuElements = [];
+
+      console.log(getComputedStyle(leftAsideMenuElements[0]));
+
+      changeContainerColorOnHover(leftAsideMenuElements[8], leftAsideMenuElementsIconContainers[0]);
+      changeContainerColorOnHover(leftAsideMenuElements[14], leftAsideMenuElementsIconContainers[1]);
+
+      for (const leftAsideMenuElement of leftAsideMenuElements) {
+         if (getComputedStyle(leftAsideMenuElement).display === 'none') {
+            nonDisplayedLeftAsideMenuElements.push(leftAsideMenuElement);
+         }
+      }
+
+      leftAsideMenuElements[8].addEventListener('click', function () {
+         this.style.display = 'none';
+
+         for (const nonDisplayedLeftAsideMenuElement of nonDisplayedLeftAsideMenuElements) {
+            nonDisplayedLeftAsideMenuElement.style.display = 'flex';
+         }
+      })
+
+      leftAsideMenuElements[14].addEventListener('click', function () {
+         leftAsideMenuElements[8].style.display = 'flex';
+
+         for (const nonDisplayedLeftAsideMenuElement of nonDisplayedLeftAsideMenuElements) {
+            nonDisplayedLeftAsideMenuElement.style.display = 'none';
+         }
+      })
+
+   </script>
+
 {% endblock %}

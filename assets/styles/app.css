@@ -17,6 +17,25 @@
     --secondaryColor: #1877f2;
     --background: #18191a;
     --secondBackground: #242526;
+    --third-background: #3a3b3c;
+    --fourth-background: #4e4f50;
+    --secondary-text-color: #9ca4b0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--fourth-background);
+
+    &:hover {
+        background: #FFF;
+    }
+}
+
+::-webkit-scrollbar-track {
+    background: #2c2c2c;
 }
 
 * {

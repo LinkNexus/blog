@@ -19,7 +19,7 @@
             <span class="main-header-icon fa fa-group"></span>
         </div>
         <div>
-            <span class="main-header-icon material-symbols-outlined">token</span>
+            <span class="main-header-icon fa fa-cubes"></span>
         </div>
     </div>
 
@@ -34,11 +34,192 @@
             <span class="main-header-menu-icon fa fa-bell"></span>
         </div>
         <div class="profile-picture">
-            {% set imagePath = 'images/' ~ user.gender ~ '_icon.jpg' %}
-            <img src="{{ asset(imagePath|lower) }}" alt="profile_pic">
+            {% if user.profilePicture is null %}
+                {% set imagePath = 'images/' ~ user.gender ~ '_icon.jpg' %}
+                <img src="{{ asset(imagePath|lower) }}" alt="profile_pic">
+            {% endif %}
             <div>
                 <span class="fa fa-chevron-down"></span>
             </div>
         </div>
     </div>
 </header>
+
+<div class="main-menu">
+    <h2>Menu</h2>
+
+    <div class="main-menu-sections">
+        <section class="main-menu-elements">
+            <input type="search" placeholder="Search Menu">
+
+            <div class="main-menu-section">
+                <h3>Social</h3>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/timetable.png') }}" alt="">
+                    <div>
+                        <span>Events</span>
+                        <p>
+                            Organize and find events and other things to do online and nearby
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/friends.png') }}" alt="">
+                    <div>
+                        <span>Friends</span>
+                        <p>
+                            Find friends or persons you know.
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/diversity.png') }}" alt="">
+                    <div>
+                        <span>Groups</span>
+                        <p>
+                            Connect with people who share your interests.
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/newsfeed.png') }}" alt="">
+                    <div>
+                        <span>Feed</span>
+                        <p>
+                            Consult recent and meaningful posts of people, friends, groups
+                            and more.
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/facebook-page.png') }}" alt="">
+                    <div>
+                        <span>Pages</span>
+                        <p>
+                            Discover and connect with businesses on TheNexus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="main-menu-section">
+                <h3>Entertainment</h3>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/game.png') }}" alt="">
+                    <div>
+                        <span>Play Games</span>
+                        <p>
+                            Play your favorite games
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/smart-tv.png') }}" alt="">
+                    <div>
+                        <span>Videos</span>
+                        <p>
+                            A Video Destination personalized to your interests and connections.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="main-menu-section">
+                <h3>Shopping</h3>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/atm-card.png') }}" alt="">
+                    <div>
+                        <span>Orders and Payment</span>
+                        <p>
+                            A seamless, secure way to pay on the apps you already use.
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/shop.png') }}" alt="">
+                    <div>
+                        <span>Marketplace</span>
+                        <p>
+                            Buy and sell in your Community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="main-menu-section">
+                <h3>Personal</h3>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/clock.png') }}" alt="">
+                    <div>
+                        <span>Memories</span>
+                        <p>
+                            Browse your old photos, videos and posts on TheNexus.
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu-element">
+                    <img src="{{ asset('images/icons/bookmark.png') }}" alt="">
+                    <div>
+                        <span>Saved</span>
+                        <p>
+                            Find posts, photos and videos that you saved for later.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main-menu-actions">
+            <span>Create</span>
+            <div>
+                <div class="main-menu-action">
+                    <div><span class="main-menu-action-icon material-symbols-outlined">edit_square</span></div>
+                    <span>Post</span>
+                </div>
+                <div class="main-menu-action">
+                    <div><span class="main-menu-action-icon material-symbols-outlined">movie</span></div>
+                    <span>Story</span>
+                </div>
+            </div>
+            <div>
+                <div class="main-menu-action">
+                    <div><span class="main-menu-action-icon material-symbols-outlined">flag</span></div>
+                    <span>Page</span>
+                </div>
+                <div class="main-menu-action">
+                    <div><span class="main-menu-action-icon fa fa-group"></span></div>
+                    <span>Group</span>
+                </div>
+                <div class="main-menu-action">
+                    <div><span class="main-menu-action-icon material-symbols-outlined">event</span></div>
+                    <span>Event</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    const mainMenuActions = document.querySelectorAll('.main-menu-action'),
+        mainMenuActionIconContainers = document.querySelectorAll('.main-menu-action>div'),
+        mainHeaderMenuIconContainers = document.querySelectorAll('#main-header-menu>div'),
+        mainMenu = document.querySelector('.main-menu');
+
+    let mainMenuClicks = 0;
+
+    function changeContainerColorOnHover(hoverableElement, targetContainer) {
+        hoverableElement.addEventListener('mouseover', function () {
+            targetContainer.style.background = 'var(--fourth-background)';
+        })
+
+        hoverableElement.addEventListener('mouseleave', function () {
+            targetContainer.style.background = 'var(--third-background)';
+        })
+    }
+
+    for (let i = 0; i < mainMenuActions.length; i++) {
+        changeContainerColorOnHover(mainMenuActions[i], mainMenuActionIconContainers[i]);
+    }
+
+    mainHeaderMenuIconContainers[0].addEventListener('click', function () {
+        mainMenuClicks++;
+        mainMenuClicks % 2 === 0 ? mainMenu.style.display = 'none' : mainMenu.style.display = 'flex';
+    })
+</script>
