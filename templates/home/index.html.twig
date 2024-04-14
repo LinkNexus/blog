@@ -94,7 +94,62 @@
              <span>See less</span>
           </div>
        </div>
+       <div class="left-aside-menu-shortcuts">
+          <div class="left-aside-menu-shortcuts-header">
+             <h3>Your Shortcuts</h3>
+             <a>Edit</a>
+          </div>
+       </div>
     </aside>
+
+   <aside class="right-aside-menu">
+      <div class="right-aside-menu-block pages-and-profiles">
+         <h3>Your Pages and Profiles</h3>
+         <div class="create-new-page">
+            <div>
+               <span class="fa fa-plus"></span>
+            </div>
+            <span>Create new Page</span>
+         </div>
+      </div>
+      <div class="right-aside-menu-block group-conversations">
+         <h3>Group Conversations</h3>
+         <div class="create-new-group">
+            <div>
+               <span class="fa fa-plus"></span>
+            </div>
+            <span>Create new Group</span>
+         </div>
+      </div>
+   </aside>
+
+   <section class="main-section">
+      <div class="stories-block">
+         <div class="stories">
+            <div>
+               <span class="fa fa-plus"></span>
+            </div>
+            <div>
+               <span>Create Story</span>
+               <p>Share a Photo or write something</p>
+            </div>
+         </div>
+      </div>
+
+      <div class="main-section-content">
+         <div class="upload-post">
+            <div>
+               {% if user.profilePicture is null %}
+                  {% set imagePath = 'images/' ~ user.gender ~ '_icon.jpg' %}
+                  <img src="{{ asset(imagePath|lower) }}" alt="profile_pic">
+               {% endif %}
+
+               <input type="text" placeholder="What's on your mind, {{ user.username }}?">
+            </div>
+            <div></div>
+         </div>
+      </div>
+   </section>
 
    <script>
       console.log(
@@ -106,7 +161,12 @@
       );
 
       const leftAsideMenuElements = document.querySelectorAll('.left-aside-menu-element'),
-              leftAsideMenuElementsIconContainers = document.querySelectorAll('.left-aside-menu-element>div');
+              leftAsideMenuElementsIconContainers = document.querySelectorAll('.left-aside-menu-element>div'),
+          leftAsideMenuShortcuts = document.querySelector('.left-aside-menu-shortcuts'),
+              rightAsideMenuCreateGroup = document.querySelector('.right-aside-menu-block .create-new-group'),
+              rightAsideMenuCreatePage = document.querySelector('.right-aside-menu-block .create-new-page'),
+              rightAsideMenuCreateGroupIconContainer = document.querySelector('.create-new-group>div'),
+              rightAsideMenuCreatePageIconContainer = document.querySelector('.create-new-page>div');
 
       let nonDisplayedLeftAsideMenuElements = [];
 
@@ -114,6 +174,8 @@
 
       changeContainerColorOnHover(leftAsideMenuElements[8], leftAsideMenuElementsIconContainers[0]);
       changeContainerColorOnHover(leftAsideMenuElements[14], leftAsideMenuElementsIconContainers[1]);
+      changeContainerColorOnHover(rightAsideMenuCreatePage, rightAsideMenuCreatePageIconContainer);
+      changeContainerColorOnHover(rightAsideMenuCreateGroup, rightAsideMenuCreateGroupIconContainer);
 
       for (const leftAsideMenuElement of leftAsideMenuElements) {
          if (getComputedStyle(leftAsideMenuElement).display === 'none') {
@@ -136,6 +198,8 @@
             nonDisplayedLeftAsideMenuElement.style.display = 'none';
          }
       })
+
+      leftAsideMenuShortcuts.style.visibility = 'visible';
 
    </script>
 
