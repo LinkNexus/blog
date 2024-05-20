@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -11,10 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[UniqueEntity(
-    fields: ['email'],
-    message: 'There is already an account with this email'
-)]
+#[UniqueEntity('email', message: 'This Email is already used by another Account')]
+#[UniqueEntity('username', message: 'This Username is already used by another Account')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -70,10 +70,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $profilePicture = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class)]
+    private Collection $posts;
+
+    #[ORM\OneToMany(mappedBy: 'restrictedUser', targetEntity: Restriction::class)]
+    private Collection $restrictions;
+
     public function __construct()
     {
         $this->lastLogin = new \DateTimeImmutable();
         $this->joinedAt = new \DateTimeImmutable();
+        $this->posts = new ArrayCollection();
+        $this->restrictions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,6 +234,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfilePicture(?string $profilePicture): static
     {
         $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Restriction>
+     */
+    public function getRestrictions(): Collection
+    {
+        return $this->restrictions;
+    }
+
+    public function addRestriction(Restriction $restriction): static
+    {
+        if (!$this->restrictions->contains($restriction)) {
+            $this->restrictions->add($restriction);
+            $restriction->setRestrictedUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestriction(Restriction $restriction): static
+    {
+        if ($this->restrictions->removeElement($restriction)) {
+            // set the owning side to null (unless already changed)
+            if ($restriction->getRestrictedUser() === $this) {
+                $restriction->setRestrictedUser(null);
+            }
+        }
 
         return $this;
     }

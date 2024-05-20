@@ -1,0 +1,341 @@
+<style>
+    & .create-post {
+        display: none;
+        flex-direction: column;
+        background: var(--secondBackground);
+        border-radius: 5px;
+        margin-bottom: 20px;
+        width: 900px;
+        z-index: 5;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        & .create-post-title {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            width: 100%;
+            padding: 10px 20px;
+            border-bottom: 1px solid var(--secondary-text-color);
+            position: relative;
+
+            & h2 {
+                font-size: 25px;
+                width: fit-content;
+                font-weight: bolder;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &>div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 100%;
+                background: var(--third-background);
+                aspect-ratio: 1;
+                width: 40px;
+                cursor: pointer;
+
+                &>span {
+                    display: inline-block;
+                    font-size: 25px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background: var(--fourth-background);
+                }
+            }
+        }
+
+        & .create-post-form {
+            display: flex;
+            flex-direction: column;
+
+            & .profile {
+                display: flex;
+                padding: 20px;
+                align-items: center;
+
+                &>img {
+                    height: 50px;
+                    aspect-ratio: 1;
+                    margin-right: 10px;
+                    border-radius: 50%;
+                }
+
+                &>div {
+                    &>span {
+                        font-weight: bolder;
+                        font-size: 18px;
+                        display: inline-block;
+                        margin-bottom: 3px;
+                    }
+
+                    & .post-restrict {
+                        display: none;
+                        align-content: center;
+                        justify-content: center;
+                        background: var(--third-background);
+                        border-radius: 5px;
+                        padding: 2px;
+                        font-weight: bolder;
+
+                        & .fa {
+                            display: inline-block;
+                            position: relative;
+                            top: 3px;
+                            margin-right: 3px;
+                        }
+                    }
+
+                    & select {
+                        background: var(--third-background);
+                        color: white;
+                        font-weight: bolder;
+                    }
+                }
+            }
+
+            & .fr-toolbar, & .fr-element, & .fr-second-toolbar, & .fr-more-toolbar, & .fr-floating-btn,
+            & .fr-qi-helper a.fr-btn.fr-floating-btn, & .fr-popup, & .fr-dropdown-wrapper,
+            & .fr-command, & .fr-dropdown-list {
+                background-color: var(--secondBackground);
+            }
+
+            & .fr-popup {
+                color: #fff;
+
+                & .fr-tabs {
+                    background: var(--secondBackground);
+                }
+            }
+
+            & .fr-toolbar, & .fr-wrapper, & .fr-second-toolbar {
+                border: none;
+            }
+
+            & .fr-toolbar .fr-command:not(& .fr-dropdown-wrapper a, & .fr-table-cell), & .fr-floating-btn, & .fr-qi-helper a.fr-btn.fr-floating-btn {
+                width: 40px;
+                color: #fff;
+                text-align: center;
+
+                &>svg, &>span {
+                    margin: auto;
+                }
+
+                & > svg > path {
+                    fill: #fff;
+                }
+
+                &:hover, &:focus, &:active {
+                    background: #fff;
+
+                    & > svg > path {
+                        fill: #000;
+                    }
+                }
+            }
+            & .fr-dropdown-list li:hover{
+                color: #000;
+            }
+
+            & .fr-element {
+                color: #fff;
+                min-height: 150px;
+            }
+
+            & .fr-code {
+                background: var(--secondBackground);
+                color: #fff;
+            }
+
+            & .fr-popup label {
+                background: var(--secondBackground);
+                color: #fff;
+            }
+
+            & .fr-popup input, & .fr-popup textarea {
+                color: #fff;
+                border-image: initial;
+                border: 2px inset #000;
+                background: inherit;
+                background: var(--secondBackground);
+            }
+
+            & .fr-trim-button {
+                color: #fff;
+            }
+
+            & .fr-plugins-enable {
+                background: var(--principalColor);
+            }
+
+            & .fr-plugins-cancel {
+                background: var(--secondaryColor);
+            }
+
+            & .fr-dropdown-wrapper {
+                width: 200px;
+                padding-right: 5px;
+                color: #fff;
+            }
+
+            & button#create_post_form_submit {
+                width: 90%;
+                align-self: center;
+                background: var(--principalColor);
+                font-weight: bold;
+                height: 35px;
+                font-size: 20px;
+                margin-top: 10px;
+                margin-bottom: 15px;
+            }
+        }
+    }
+</style>
+
+{% form_theme createPostForm 'bootstrap_5_layout.html.twig' %}
+
+{% if app.flashes|length > 0 %}
+    <style>
+        .create-post {
+            display: flex;
+        }
+    </style>
+{% endif %}
+
+<div class="create-post">
+    <div class="create-post-title">
+        <h2>Create Post</h2>
+        <div>
+            <span class="fa fa-times"></span>
+        </div>
+    </div>
+    {{ form_start(createPostForm, {'attr': {'class': 'create-post-form', 'enctype': 'multipart/form-data'}}) }}
+        {{ form_errors(createPostForm) }}
+        {% include 'base/_flash_message.html.twig' %}
+
+        <div class="profile">
+            {% if user.profilePicture is null %}
+                {% set imagePath = 'images/' ~ user.gender ~ '_icon.jpg' %}
+                <img src="{{ asset(imagePath|lower) }}" alt="profile_pic">
+            {% endif %}
+
+            <div>
+                <span>{{ user.username }}</span>
+                {{ form_widget(createPostForm.restrictionType) }}
+                <div class="post-restrict">
+                    <span class="fa fa-users"></span>
+                    <span>Friends</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            {{ form_widget(createPostForm.content) }}
+        </div>
+        <div id="file-inputs" style="display: none;"></div>
+        {{ form_widget(createPostForm.submit) }}
+    {{ form_end(createPostForm) }}
+</div>
+
+<script src="{{ asset('build/js/froala/froala_editor.pkgd.min.js') }}"></script>
+<script src="{{ asset('build/js/ckeditor/ckeditor.js') }}"></script>
+
+<script>
+    let errors = [];
+
+    /* function uploadFile(attachment) {
+        const file = attachment.file,
+            formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/', {
+            method: 'POST',
+            'body': formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.url) {
+                    attachment.setAttributes({
+                        url: data.url
+                    });
+                } else {
+                    errors.push("File Upload failed");
+                }
+            })
+    }
+
+    document.addEventListener("trix-attachment-add", (event) => {
+        const attachment = event.attachment;
+
+        if (attachment.file) {
+            const allowedExtensions = ['jpg', 'png', 'jpeg', 'gif', 'mp4', 'avi'],
+                fileExtension = attachment.file.name.split('.').pop().toLowerCase();
+
+            if (allowedExtensions.includes(fileExtension)) {
+                uploadFile(attachment);
+            } else {
+                errors.push('File Type isn\'t allowed. Please upload an image or video');
+                event.preventDefault();
+            }
+        }
+    }); */
+    const froalaButtons = document.querySelectorAll('.fr-toolbar .fr-command'),
+        createPostExitButton = document.querySelector('.create-post-title>div');
+
+    function addElementsToFroalaButtons(...Elements) {
+        for (const elements of Elements) {
+            if (elements instanceof HTMLCollection) {
+                for (const element of elements) {
+                    froalaButtons.push(element);
+                }
+            } else if (elements instanceof HTMLElement) {
+                froalaButtons.push(elements);
+            }
+        }
+    }
+
+    addElementsToFroalaButtons(
+        document.querySelectorAll('.fr-floating-btn'),
+        document.querySelectorAll('.fr-qi-helper a.fr-btn.fr-floating-btn'),
+        document.querySelectorAll('.fr-command')
+    );
+
+    console.log(froalaButtons.length);
+
+    froalaButtons.forEach((element) => {
+        if (Window.getComputedStyle(element).background !== "#242526") {
+            element.style.color = "#000";
+        }
+    });
+
+    createPostExitButton.addEventListener('click', function () {
+        document.querySelector('.create-post').style.display = 'none';
+    })
+
+    if (document.querySelector('.create-post-form .messages').contains(document.querySelector('input'))) {
+        document.querySelector('.create-post').style.display = 'flex';
+    }
+
+    const specialCharactersCategoryButtons = document.getElementsByClassName('.fr-special-character-category'),
+        specialCharactersButtons = document.getElementsByClassName('.fr-special-character');
+
+    for (const specialCharactersCategoryButton of specialCharactersCategoryButtons) {
+        specialCharactersCategoryButton.addEventListener('hover', () => {
+            this.style.color = '#000';
+        })
+    }
+
+    for (const specialCharactersButton of specialCharactersButtons) {
+        specialCharactersButton.addEventListener('hover', () => {
+            this.style.color = '#000';
+        })
+    }
+
+</script>

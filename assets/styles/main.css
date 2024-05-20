@@ -9,7 +9,7 @@
     justify-self: flex-start;
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 7;
 
     & #logo-part {
         display: flex;
@@ -225,7 +225,6 @@
                     }
 
                     & div {
-                        text-wrap: normal;
                         width: calc(100% - 30px - 40px);
 
                         & span {
@@ -308,7 +307,7 @@
 
 .left-aside-menu {
     width: 300px;
-    position: absolute;
+    position: fixed;
     top: 75px;
     height: calc(100% - 75px);
     padding: 10px;
@@ -404,7 +403,7 @@
 
 .right-aside-menu {
     width: 275px;
-    position: absolute;
+    position: fixed;
     top: 75px;
     height: calc(100% - 75px);
     padding: 10px;
@@ -568,13 +567,19 @@
             background: var(--secondBackground);
             border-radius: 5px;
             margin-bottom: 20px;
+            padding: 15px;
 
             &>div {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 width: 100%;
-                padding: 15px;
+                padding-bottom: 15px;
+                padding-top: 15px;
+
+                &:nth-child(1) {
+                    border-bottom: 1px solid var(--secondary-text-color);
+                }
 
                 &>img {
                     height: 50px;
@@ -596,6 +601,25 @@
 
                     &::placeholder {
                         font-size: 20px;
+                    }
+                }
+
+                & .upload-post-action {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 25px;
+                    padding: 10px;
+                    border-radius: 5px;
+                    color: var(--secondary-text-color);
+                    & img {
+                        width: 40px;
+                        margin-right: 10px;
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+                        background: var(--third-background);
                     }
                 }
             }

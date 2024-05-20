@@ -7,6 +7,7 @@
 {% block stylesheets %}
    {{ parent() }}
    {{ encore_entry_link_tags('main') }}
+   <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
 {% endblock %}
 
 {% block body %}
@@ -146,20 +147,33 @@
 
                <input type="text" placeholder="What's on your mind, {{ user.username }}?">
             </div>
-            <div></div>
+            <div>
+               <div class="upload-post-action live">
+                  <img src="{{ asset('images/icons/live.png') }}" alt="">
+                  <span>Live Video</span>
+               </div>
+               <div class="upload-post-action photos">
+                  <img src="{{ asset('images/icons/photos.png') }}" alt="">
+                  <span>Photos and Videos</span>
+               </div>
+               <div class="upload-post-action code">
+                  <img src="{{ asset('images/icons/code.png') }}" alt="">
+                  <span>Code</span>
+               </div>
+            </div>
          </div>
+
+         {% include 'base/upload-post.html.twig' %}
+
+         {% for post in user.posts %}
+            <div class="fr-view">
+               {{ post.content|raw }}
+            </div>
+         {% endfor %}
       </div>
    </section>
 
    <script>
-      console.log(
-              window.innerHeight,
-              window.innerWidth,
-              document.querySelector('#logo-part').offsetWidth,
-              document.querySelector('#main-header-menu').offsetWidth,
-              document.querySelector('#main-header-icons>div').offsetWidth
-      );
-
       const leftAsideMenuElements = document.querySelectorAll('.left-aside-menu-element'),
               leftAsideMenuElementsIconContainers = document.querySelectorAll('.left-aside-menu-element>div'),
           leftAsideMenuShortcuts = document.querySelector('.left-aside-menu-shortcuts'),
@@ -169,8 +183,6 @@
               rightAsideMenuCreatePageIconContainer = document.querySelector('.create-new-page>div');
 
       let nonDisplayedLeftAsideMenuElements = [];
-
-      console.log(getComputedStyle(leftAsideMenuElements[0]));
 
       changeContainerColorOnHover(leftAsideMenuElements[8], leftAsideMenuElementsIconContainers[0]);
       changeContainerColorOnHover(leftAsideMenuElements[14], leftAsideMenuElementsIconContainers[1]);
@@ -201,6 +213,125 @@
 
       leftAsideMenuShortcuts.style.visibility = 'visible';
 
+      let fileInputsCounter = 0;
+
+      const postEditor = FroalaEditor("#create_post_form_content", {
+         events: {
+            'image.inserted': function ($img, response) {
+               fileInputsCounter++;
+               let fileId = 'file-input-' + fileInputsCounter;
+               $img[0].setAttribute('data-file-id', fileId);
+
+               fetch($img[0].src)
+                       .then(res => res.blob())
+                       .then(blob => {
+                          const inputField = document.createElement('input');
+                          inputField.setAttribute('type', 'file');
+                          inputField.setAttribute('name', $img[0].src);
+                          inputField.setAttribute('id', fileId);
+                          inputField.setAttribute('value', $img[0].src);
+
+                          let dataTransfer = new DataTransfer();
+                          dataTransfer.items.add(new File([blob], $img[0].src, {
+                             type: blob.type
+                          }));
+
+                          inputField.files = dataTransfer.files;
+                          document.getElementById('file-inputs').appendChild(inputField);
+                       });
+            },
+            'image.removed': function ($img) {
+               let fileId = $img[0].getAttribute('data-file-id');
+               const inputField = document.getElementById(fileId);
+
+               if (inputField) {
+                  inputField.remove();
+               }
+            },
+            'file.inserted': function ($file, response) {
+               fileInputsCounter++;
+               let fileId = 'file-input-' + fileInputsCounter;
+               $file[0].setAttribute('data-file-id', fileId);
+
+               fetch($file[0].src)
+                       .then(res => res.blob())
+                       .then(blob => {
+                          const inputField = document.createElement('input');
+                          inputField.setAttribute('type', 'file');
+                          inputField.setAttribute('name', $file[0].src);
+                          inputField.setAttribute('id', fileId);
+                          inputField.setAttribute('value', $file[0].src);
+
+                          let dataTransfer = new DataTransfer();
+                          dataTransfer.items.add(new File([blob], $file[0].src, {
+                             type: blob.type
+                          }));
+
+                          inputField.files = dataTransfer.files;
+                          document.getElementById('file-inputs').appendChild(inputField);
+                       });
+            },
+            'file.removed': function ($file) {
+               let fileId = $file[0].getAttribute('data-file-id');
+               const inputField = document.getElementById(fileId);
+
+               if (inputField) {
+                  inputField.remove();
+               }
+            },
+            'video.inserted': function ($img, response) {
+               fileInputsCounter++;
+               let fileId = 'file-input-' + fileInputsCounter;
+               $img[0].setAttribute('data-file-id', fileId);
+
+               fetch($img[0].src)
+                       .then(res => res.blob())
+                       .then(blob => {
+                          const inputField = document.createElement('input');
+                          inputField.setAttribute('type', 'file');
+                          inputField.setAttribute('name', $img[0].src);
+                          inputField.setAttribute('id', fileId);
+                          inputField.setAttribute('value', $img[0].src);
+
+                          let dataTransfer = new DataTransfer();
+                          dataTransfer.items.add(new File([blob], $img[0].src, {
+                             type: blob.type
+                          }));
+
+                          inputField.files = dataTransfer.files;
+                          document.getElementById('file-inputs').appendChild(inputField);
+                       });
+            },
+            'video.removed': function ($img) {
+               let fileId = $img[0].getAttribute('data-file-id');
+               const inputField = document.getElementById(fileId);
+
+               if (inputField) {
+                  inputField.remove();
+               }
+            },
+         },
+         imageUploadMethod: 'POST',
+         imageMaxSize: 5 * 1024 * 1024,
+         imageAllowedTypes: ['jpeg', 'jpg', 'png', 'webp', 'gif'],
+         videoUploadMethod: 'POST',
+         videoMaxSize: 50 * 1024 * 1024,
+         videoAllowedTypes: ['mp4', 'avi', 'mov'],
+         fileUploadMethod: 'POST',
+         fileMaxSize: 10 * 1024 * 1024,
+         fileAllowedTypes: ['pdf', 'mp3'],
+      });
+
+      const createPostBlock = document.querySelector('.create-post'),
+              uploadPostInput = document.querySelector('.upload-post input');
+
+      uploadPostInput.addEventListener('click', function () {
+         createPostBlock.style.display = 'flex';
+      })
+
+      if (document.getElementById('create_post_form_file').files.length !== 0) {
+         console.log(document.getElementById('create_post_form_file').files)
+      }
    </script>
 
 {% endblock %}

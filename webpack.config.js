@@ -72,6 +72,21 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+
+    .copyFiles({
+        from: './node_modules/froala-editor/js',
+        to: 'js/froala/[path][name].[ext]',
+    })
+
+    .copyFiles({
+        from: './node_modules/froala-editor/css',
+        to: 'css/froala/[path][name].[ext]',
+    })
+
+    .copyFiles({
+        from: './node_modules/@ckeditor/ckeditor5-build-classic/build',
+        to: 'js/ckeditor/[path][name].[ext]',
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

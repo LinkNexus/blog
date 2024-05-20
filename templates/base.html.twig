@@ -8,6 +8,8 @@
 
         {% block stylesheets %}
             {{ ux_controller_link_tags() }}
+            <link rel="stylesheet" href="{{ asset('build/css/froala/froala_editor.pkgd.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('build/css/froala/froala_style.min.css') }}">
         {% endblock %}
 
         {% block javascripts %}

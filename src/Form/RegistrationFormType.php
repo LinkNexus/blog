@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Validator\UniqueUsername;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,11 +28,6 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Username'
                 ],
-                'constraints' => [
-                    new UniqueUsername([
-                        'message' => 'There is already an account with this username',
-                    ]),
-                ]
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
